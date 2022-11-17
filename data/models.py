@@ -34,10 +34,65 @@ class Disease(models.Model):
         return self.disease_code
 
 
-class Depart(models.Model):
-    zxc = models.IntegerField(primary_key=True, blank=False, null=False)
-    name = models.CharField(max_length=50)
+class Discover(models.Model):
+    cname = models.ForeignKey(Country, on_delete=models.CASCADE, blank=False, null=False)
+    disease_code = models.ForeignKey(Disease, on_delete=models.CASCADE, blank=False, null=False)
+    first_enc = models.DateField()
+    class Meta:
+        db_table = 'discover'
+    
+    def __str__(self) -> str:
+        return self.first_enc.strftime('%d-%m-%Y')
 
-class Student(models.Model):
-    name = models.CharField(max_length=140, primary_key=True)
-    qwe = models.ForeignKey(Depart, on_delete=models.CASCADE)
+class Users(models.Model):
+    email = models.CharField(max_length=60, blank=False, null=False, primary_key=True)
+    name = models.CharField(max_length=30, blank=False, null=False)
+    surname = models.CharField(max_length=40, blank=False, null=False)
+    salary = models.IntegerField(default=0, blank=False, null=False)
+    phone = models.CharField(max_length=20)
+    cname = models.ForeignKey(Country, on_delete=models.CASCADE, blank=False, null=False)
+    class Meta:
+        db_table = 'users'
+        verbose_name_plural = 'users'
+
+    def __str__(self) -> str:
+        return self.email
+
+class PublicServant(models.Model):
+    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False, primary_key=True)
+    department = models.CharField(max_length=50, blank=False, null=False)
+    class Meta:
+        db_table = 'public_servant'
+
+    def __str__(self) -> str:
+        return self.email.__str__()
+
+class Doctor(models.Model):
+    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False, primary_key=True)
+    degree = models.CharField(max_length=20)
+    class Meta:
+        db_table = 'doctor'
+    
+    def __str__(self) -> str:
+        return self.email.__str__()
+
+class Specialize(models.Model):
+    disease_type_id = models.ForeignKey(DiseaseType, on_delete=models.CASCADE, blank=False, null=False)
+    email = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=False, null=False)
+    class Meta:
+        db_table = 'specialize'
+
+    def __str__(self) -> str:
+        return self.email.__str__() + " --> " + self.disease_type_id.__str__()
+
+class Record(models.Model):
+    email = models.ForeignKey(PublicServant, on_delete=models.CASCADE, blank=False, null=False)
+    cname = models.ForeignKey(Country, on_delete=models.CASCADE, blank=False, null=False)
+    disease_code = models.ForeignKey(Disease, on_delete=models.CASCADE, blank=False, null=False)
+    total_deaths = models.IntegerField()
+    total_patients = models.IntegerField()
+    class Meta:
+        db_table = 'record'
+
+    def __str__(self) -> str:
+        return self.email.__str__() + " --> " + self.disease_code.__str__()
