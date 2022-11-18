@@ -96,3 +96,4 @@ class Record(models.Model):
 
     def __str__(self) -> str:
         return self.email.__str__() + " --> " + self.disease_code.__str__()
+        
