@@ -7,9 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Record Page</h1>
-    {% for record in records %}
-        <h5>{{record}}</h5>
-    {% endfor %}
+    <form action="" method="POST"> {% csrf_token %}
+        <button type="submit">DELETE</button>
+    </form>
 </body>
 </html>

@@ -29,7 +29,7 @@ class UsersForm(ModelForm):
 class PublicServantForm(ModelForm):
     class Meta:
         model = PublicServant
-        fields = '__all__'
+        fields = ['department']
 
 class DoctorForm(ModelForm):
     class Meta:

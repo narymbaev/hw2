@@ -4,6 +4,7 @@
 
     <div class="container">
         <form action="" method="POST">{% csrf_token %}
+            <span>Email:</span>
             <select name="user_email" id="user_email">
                 {% for user in users%}
                     <option value="{{user}}">{{user}}</option>

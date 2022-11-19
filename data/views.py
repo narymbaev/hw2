@@ -35,9 +35,8 @@ def updateDiseaseType(request, id):
 
 def deleteDiseaseType(request, id):
     disease_type = DiseaseType.objects.get(id=id)
-    if request.method == 'POST':
-        disease_type.delete()
-        return redirect('disease-type')
+    disease_type.delete()
+    return redirect('disease-type')
 
 #COUNTRY
 def country(request):
@@ -68,9 +67,8 @@ def updateCountry(request, id):
 
 def deleteCountry(request, id):
     country = Country.objects.get(id=id)
-    if request.method == 'POST':
-        country.delete()
-        return redirect('country')
+    country.delete()
+    return redirect('country')
 
 # DISEASE
 def disease(request):
@@ -101,9 +99,8 @@ def updateDisease(request, id):
 
 def deleteDisease(request, id):
     disease = Disease.objects.get(id=id)
-    if request.method == 'POST':
-        disease.delete()
-        return redirect('disease')
+    disease.delete()
+    return redirect('disease')
 
 #DISCOVER
 def discover(request):
@@ -134,9 +131,8 @@ def updateDiscover(request, id):
 
 def deleteDiscover(request, id):
     discover = Discover.objects.get(id=id)
-    if request.method == 'POST':
-        discover.delete()
-        return redirect('discover')
+    discover.delete()
+    return redirect('discover')
 
 #USERS
 def users(request):
@@ -178,12 +174,22 @@ def publicServant(request):
 
 def createPublicServant(request):
     form = PublicServantForm()
+    free_users = Users.objects.all()
+    lst = list()
+    # this sheet of code for getting list of free users who is not Doctor nor PublicServant
+    for user in free_users:
+        if not (Doctor.objects.filter(id=user.id).exists() or PublicServant.objects.filter(id=user.id).exists()):
+            lst.append(user)
     if request.method == 'POST':
+        email = request.POST.get('user_email')
         form = PublicServantForm(request.POST)
         if form.is_valid():
-            form.save()
+            public_servant = form.save(commit=False)
+            user = Users.objects.get(email=email)
+            public_servant.email = user
+            public_servant.save()
             return redirect('public-servant')
-    context = {"form": form}
+    context = {"form": form, 'users': lst}
     return render(request, 'create/public_servant.html', context)
 
 def updatePublicServant(request, id):
@@ -199,9 +205,8 @@ def updatePublicServant(request, id):
 
 def deletePublicServant(request, id):
     public_servant = PublicServant.objects.get(id=id)
-    if request.method == 'POST':
-        public_servant.delete()
-        return redirect('public-servant')
+    public_servant.delete()
+    return redirect('public-servant')
 
 #DOCTOR
 def doctor(request):
@@ -244,9 +249,8 @@ def updateDoctor(request, id):
 
 def deleteDoctor(request, id):
     doctor = Doctor.objects.get(id=id)
-    if request.method == 'POST':
-        doctor.delete()
-        return redirect('doctor')
+    doctor.delete()
+    return redirect('doctor')
 
 #SPECIALIZE
 def specialize(request):
@@ -277,9 +281,8 @@ def updateSpecialize(request, id):
 
 def deleteSpecialize(request, id):
     specialize = Specialize.objects.get(id=id)
-    if request.method == 'POST':
-        specialize.delete()
-        return redirect('specialize')
+    specialize.delete()
+    return redirect('specialize')
 
 #RECORD
 def record(request):
@@ -310,6 +313,5 @@ def updateRecord(request, id):
 
 def deleteRecord(request, id):
     record = Record.objects.get(id=id)
-    if request.method == 'POST':
-        record.delete()
-        return redirect('record')
+    record.delete()
+    return redirect('record')
