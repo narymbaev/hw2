@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class DiseaseType(models.Model):
-    id = models.IntegerField(primary_key=True, blank=False, null=False)
+    id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=140, blank=True, null=True)
     class Meta:
         db_table = 'disease_type'
@@ -12,8 +12,8 @@ class DiseaseType(models.Model):
         return self.description
 
 class Country(models.Model):
-    cname = models.CharField(max_length=50, blank=False, null=False, primary_key=True)
-    population = models.BigIntegerField(blank=False, null=False)
+    cname = models.CharField(max_length=50, blank=False, null=False)
+    population = models.IntegerField(blank=False, null=False)
     class Meta:
         db_table = "country"
         verbose_name_plural = "country"
@@ -22,10 +22,10 @@ class Country(models.Model):
         return self.cname
 
 class Disease(models.Model):
-    disease_code = models.CharField(max_length=50, blank=False, null=False, primary_key=True)
+    disease_code = models.CharField(max_length=50, blank=False, null=False)
     pathogen = models.CharField(max_length=20, blank=False, null=False)
     description = models.CharField(max_length=140)
-    id = models.ForeignKey(DiseaseType, on_delete=models.CASCADE)
+    disease_type = models.ForeignKey(DiseaseType, on_delete=models.CASCADE)
     class Meta:
         db_table = 'disease'
         verbose_name_plural = 'disease'
@@ -45,7 +45,7 @@ class Discover(models.Model):
         return self.first_enc.strftime('%d-%m-%Y')
 
 class Users(models.Model):
-    email = models.CharField(max_length=60, blank=False, null=False, primary_key=True)
+    email = models.CharField(max_length=60, blank=False, null=False)
     name = models.CharField(max_length=30, blank=False, null=False)
     surname = models.CharField(max_length=40, blank=False, null=False)
     salary = models.IntegerField(default=0, blank=False, null=False)
@@ -59,7 +59,7 @@ class Users(models.Model):
         return self.email
 
 class PublicServant(models.Model):
-    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False, primary_key=True)
+    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False)
     department = models.CharField(max_length=50, blank=False, null=False)
     class Meta:
         db_table = 'public_servant'
@@ -68,7 +68,7 @@ class PublicServant(models.Model):
         return self.email.__str__()
 
 class Doctor(models.Model):
-    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False, primary_key=True)
+    email = models.ForeignKey(Users, on_delete=models.CASCADE, blank=False, null=False)
     degree = models.CharField(max_length=20)
     class Meta:
         db_table = 'doctor'
@@ -77,13 +77,13 @@ class Doctor(models.Model):
         return self.email.__str__()
 
 class Specialize(models.Model):
-    disease_type_id = models.ForeignKey(DiseaseType, on_delete=models.CASCADE, blank=False, null=False)
+    disease_type = models.ForeignKey(DiseaseType, on_delete=models.CASCADE, blank=False, null=False)
     email = models.ForeignKey(Doctor, on_delete=models.CASCADE, blank=False, null=False)
     class Meta:
         db_table = 'specialize'
 
     def __str__(self) -> str:
-        return self.email.__str__() + " --> " + self.disease_type_id.__str__()
+        return self.email.__str__() + " --> " + self.disease_type.__str__()
 
 class Record(models.Model):
     email = models.ForeignKey(PublicServant, on_delete=models.CASCADE, blank=False, null=False)
@@ -96,4 +96,3 @@ class Record(models.Model):
 
     def __str__(self) -> str:
         return self.email.__str__() + " --> " + self.disease_code.__str__()
-        

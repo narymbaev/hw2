@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>User Page</h1>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+        </thead>
+        {% for user in users %}
+        <tr>
+          <td>{{user}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.surname}}</td>
+          <td>{{user.salary}}</td>
+          <td>{{user.phone}}</td>
+          <td><a href="{% url 'update-users' user.id %}">edit</a></td>
+          <td><a href="{% url 'delete-users' user.id %}"><i class="fa fa-trash-o"></i></a></td>
+        </tr>
+        {% endfor %}
+      </table>
+</div>
+
+{% endblock %}

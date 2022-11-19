@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Doctor Page</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Degree</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+            </thead>
+            {% for doctor in doctors %}
+            <tr>
+              <td>{{doctor}}</td>
+              <td>{{doctor.degree}}</td>
+              <td><a href="{% url 'update-doctor' doctor.id %}">edit</a></td>
+              <td><a href="{% url 'delete-doctor' doctor.id %}"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+            {% endfor %}
+          </table>
+    </div>
+
+{% endblock %}

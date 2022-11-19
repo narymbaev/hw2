@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h1>Disease-Type Page</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Description</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+            </thead>
+            {% for disease_type in disease_types %}
+            <tr>
+              <td>{{disease_type}}</td>
+              <td><a href="{% url 'update-disease-type' disease_type.id %}">edit</a></td>
+              <td><a href="{% url 'delete-disease-type' disease_type.id %}"><i class="fa fa-trash-o"></i></a></td>
+            </tr>
+            {% endfor %}
+          </table>
+    </div>
+
+{% endblock %}

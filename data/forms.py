@@ -4,7 +4,7 @@ from .models import *
 class DiseaseTypeForm(ModelForm):
     class Meta:
         model = DiseaseType
-        fields = '__all__'
+        fields = ['description']
 
 class CountryForm(ModelForm):
     class Meta:
@@ -34,7 +34,7 @@ class PublicServantForm(ModelForm):
 class DoctorForm(ModelForm):
     class Meta:
         model = Doctor
-        fields = '__all__'
+        fields = ['degree']
 
 class SpecializeForm(ModelForm):
     class Meta:
