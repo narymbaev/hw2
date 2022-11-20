@@ -1,27 +1,41 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
-
-    <div class="container">
-        <h1>Specialize Page | <a href="{% url 'create-specialize' %}">+Create Specialize</a></h1>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Email</th>
-                    <th scope="col">Disease-Type</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-            </thead>
-            {% for specialize in specializes %}
-            <tr>
-                <td>{{specialize.email}}</td>
-              <td>{{specialize.disease_type}}</td>
-              <td><a href="{% url 'update-specialize' specialize.id %}">edit</a></td>
-              <td><a href="{% url 'delete-specialize' specialize.id %}"><i class="fa fa-trash-o"></i></a></td>
-            </tr>
-            {% endfor %}
-          </table>
-    </div>
+<div class="container">
+  <div class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
+    <h1>Specialize Page</h1>
+    <!-- <p class="align-self-end text-danger">
+      *To edit data, press 1st column of the row
+    </p> -->
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Disease-Type</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    {% for specialize in specializes %}
+    <tr>
+      <td>{{specialize.email}}</td>
+      <td>{{specialize.disease_type}}</td>
+      <td><a href="{% url 'update-specialize' specialize.id %}">edit</a></td>
+      <td>
+        <a href="{% url 'delete-specialize' specialize.id %}"
+          ><i class="fa fa-trash-o"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="button" class="btn btn-success">
+    <a
+      class="text-decoration-none text-light"
+      href="{% url 'create-specialize'%}"
+      >Create new data</a
+    >
+  </button>
+</div>
 
 {% endblock %}

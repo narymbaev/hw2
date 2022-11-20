@@ -1,27 +1,40 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
 
-{% block content %}
-
-    <div class="container">
-        <h1>Country Page | <a href="{% url 'create-country' %}">+Create Country</a></h1>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Country Name</th>
-                    <th scope="col">Population</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-            </thead>
-            {% for country in countries %}
-            <tr>
-              <td>{{country.cname}}</td>
-              <td>{{country.population}}</td>
-              <td><a href="{% url 'update-country' country.id %}">edit</a></td>
-              <td><a href="{% url 'delete-country' country.id %}"><i class="fa fa-trash-o"></i></a></td>
-            </tr>
-            {% endfor %}
-          </table>
-    </div>
+<div class="container">
+  <div class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
+    <h1>Country Page</h1>
+    <p class="align-self-end text-danger">
+      *To edit data, press 1st column of the row
+    </p>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Country Name</th>
+        <th scope="col">Population</th>
+        <!-- <th scope="col">Edit</th> -->
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    {% for country in countries %}
+    <tr>
+      <td>
+        <a href="{% url 'update-country' country.id %}">{{country.cname}}</a>
+      </td>
+      <td>{{country.population}}</td>
+      <td>
+        <a href="{% url 'delete-country' country.id %}"
+          ><i class="fa fa-trash-o"></i
+        ></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="button" class="btn btn-success">
+    <a class="text-decoration-none text-light" href="{% url 'create-country'%}"
+      >Create new data</a
+    >
+  </button>
+</div>
 
 {% endblock %}

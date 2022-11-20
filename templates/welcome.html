@@ -1,15 +1,16 @@
-{% extends 'main.html' %}
-
-{% block content %}
+{% extends 'main.html' %} {% block content %}
 <header class="py-5">
-    <div class="container px-lg-5">
-        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-            <div class="m-4 m-lg-5">
-                <h1 class="display-5 fw-bold">Welcome!</h1>
-                <p class="fs-4">Nurmukhammed Narymbaev's website (CRUD functions)</p>
-                <a class="btn btn-primary btn-lg disabled" href="#!">All Tables listed in Navbar</a>
-            </div>
-        </div>
+  <div class="container px-lg-5">
+    <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+      <div class="m-4 m-lg-5">
+        <h1 class="display-5 fw-bold">Welcome!</h1>
+        <p class="fs-4">Almaz Amanzholuly's website</p>
+    
+        <a class="btn btn-primary btn-lg" href="{% url 'users' %}"
+          >Let's look at the data &#8594
+        </a>
+      </div>
     </div>
+  </div>
 </header>
 {% endblock %}

@@ -1,11 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light nav-fill">
-    <!-- <a class="navbar-brand" href="{% url 'welcome' %}">Home</a> -->
+    <a class="navbar-brand" href="{% url 'welcome' %}">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav d-flex flex-wrap justify-content-center py-3">
-        <a class="navbar-brand" href="{% url 'welcome' %}" style="color:darkblue">Home</a>
+      <div class="navbar-nav">
         <a class="nav-item nav-link active" href="{% url 'users' %}">Users</a>
         <a class="nav-item nav-link active" href="{% url 'public-servant' %}">Public-Servants</a>
         <a class="nav-item nav-link active" href="{% url 'doctor' %}">Doctors</a>
